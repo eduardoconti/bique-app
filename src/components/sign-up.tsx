@@ -22,7 +22,7 @@ function Copyright(props: any) {
     >
       {'Copyright © '}
       <Link color="inherit" href="/">
-        Pix Payments
+        Buque Encantado
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

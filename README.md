@@ -2,19 +2,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Descrição
 
-Painel de controle para consultar cobranças PIX feitas pela [API Pix](https://github.com/eduardoconti/api-pix)
+Painel de controle para uma lonja de buques de chocolate
 
 ## Getting Started
 
 Development server:
 
 ```bash
-git clone https://github.com/eduardoconti/api-pix.git
-cd api-pix
+git clone https://github.com/eduardoconti/app-buque.git
+cd buque
 cp .env.example .env
 sh start.sh
 
-cd ../app-pix
+cd ../app-buque
 sh start.sh
 
 ```

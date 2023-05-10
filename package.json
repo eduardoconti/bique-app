@@ -50,7 +50,7 @@
     "branches": [
       "main"
     ],
-    "repositoryUrl": "https://github.com/eduardoconti/app-pix.git",
+    "repositoryUrl": "https://github.com/eduardoconti/app-buque.git",
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
