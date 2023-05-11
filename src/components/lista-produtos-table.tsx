@@ -9,8 +9,11 @@ import Paper from '@mui/material/Paper';
 
 import { Collapse, IconButton, TablePagination } from '@mui/material';
 
-import { ListaProdutosContext } from '@/context/lista-produto-context';
-import { ListaProdutosResponse } from '@/services/api/listar-produtos';
+import {
+  ListaProdutos,
+  ListaProdutosContext,
+} from '@/context/lista-produto-context';
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
@@ -33,7 +36,7 @@ export default function ListaProdutosTable() {
   return (
     <Paper>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 400 }} aria-label="spanning table">
+        <Table aria-label="spanning table">
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: 'bold' }}>Nome</TableCell>
@@ -68,7 +71,7 @@ export default function ListaProdutosTable() {
   );
 }
 
-function ProdutoLinha({ row }: { row: ListaProdutosResponse }) {
+function ProdutoLinha({ row }: { row: ListaProdutos }) {
   const [mostrarItens, setMostraItens] = React.useState<boolean>(false);
   return (
     <React.Fragment>

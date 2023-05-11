@@ -33,7 +33,7 @@ export default function ListaMateriaPrimaTable() {
   return (
     <Paper>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 400 }} aria-label="spanning table">
+        <Table aria-label="spanning table">
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: 'bold' }}>Nome</TableCell>

@@ -29,7 +29,7 @@ export default function ListaClientesTable() {
   return (
     <Paper>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 400 }} aria-label="spanning table">
+        <Table aria-label="spanning table">
           <TableHead>
             <TableRow>
               <TableCell size="small" sx={{ fontWeight: 'bold' }}>

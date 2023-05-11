@@ -18,10 +18,10 @@ export default function SignIn() {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={8}>
             <ListaMateriaPrimaTable />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={4}>
             <MateriaPrimaForm />
           </Grid>
         </Grid>
