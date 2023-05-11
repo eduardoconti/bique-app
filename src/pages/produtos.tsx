@@ -16,7 +16,7 @@ export default function SignIn() {
         <Typography variant="h4" sx={{ marginBottom: theme.spacing(1) }}>
           Produtos
         </Typography>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} alignItems={'flex-start'}>
           <Grid item xs={8}>
             <ListaProdutosTable />
           </Grid>

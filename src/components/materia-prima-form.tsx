@@ -1,5 +1,13 @@
 import { MateriaPrimaContext } from '@/context/materia-prima-context';
-import { Box, Button, CircularProgress, Grid, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  Paper,
+  TextField,
+  useTheme,
+} from '@mui/material';
 import React, { useRef } from 'react';
 
 export default function MateriaPrimaForm() {
@@ -18,62 +26,66 @@ export default function MateriaPrimaForm() {
       formRef.current.reset();
     }
   };
+  const theme = useTheme();
+
   return (
-    <Box
-      ref={formRef}
-      component="form"
-      noValidate
-      onSubmit={handleSubmit}
-      sx={{ mt: 3 }}
-    >
-      <Grid container spacing={1}>
-        <Grid item xs={12}>
-          <TextField
-            size="small"
-            autoComplete="given-name"
-            name="nome"
-            required
-            fullWidth
-            id="nome"
-            label="Nome"
-            autoFocus
-          />
+    <Paper elevation={1} sx={{ padding: theme.spacing(2) }}>
+      <Box
+        ref={formRef}
+        component="form"
+        noValidate
+        onSubmit={handleSubmit}
+        sx={{ mt: 3 }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              size="small"
+              autoComplete="given-name"
+              name="nome"
+              required
+              fullWidth
+              id="nome"
+              label="Nome"
+              autoFocus
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              size="small"
+              required
+              fullWidth
+              id="descricao"
+              label="Descricao"
+              name="descricao"
+              autoComplete="descricao"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              size="small"
+              required
+              fullWidth
+              name="valor"
+              label="valor"
+              type="number"
+              id="valor"
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            size="small"
-            required
+        {loading ? (
+          <CircularProgress sx={{ mt: 3, mb: 2 }} />
+        ) : (
+          <Button
+            type="submit"
             fullWidth
-            id="descricao"
-            label="Descricao"
-            name="descricao"
-            autoComplete="descricao"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            size="small"
-            required
-            fullWidth
-            name="valor"
-            label="valor"
-            type="number"
-            id="valor"
-          />
-        </Grid>
-      </Grid>
-      {loading ? (
-        <CircularProgress sx={{ mt: 3, mb: 2 }} />
-      ) : (
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Cadastrar
-        </Button>
-      )}
-    </Box>
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Cadastrar
+          </Button>
+        )}
+      </Box>
+    </Paper>
   );
 }

@@ -1,14 +1,17 @@
 import Head from 'next/head';
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
 
 import { parseCookies } from 'nookies';
 import { GetServerSideProps } from 'next';
+import ListaClientesTable from '@/components/lista-clientes-table';
+import { ClienteProvider } from '@/context/clientes-context';
+import ClienteForm from '@/components/cliente-form';
 
 export default function Home() {
   const theme = useTheme();
   return (
-    <>
+    <ClienteProvider>
       <Head>
         <title>Clientes</title>
       </Head>
@@ -16,8 +19,16 @@ export default function Home() {
         <Typography variant="h4" sx={{ marginBottom: theme.spacing(1) }}>
           Clientes
         </Typography>
+        <Grid container spacing={2} alignItems={'flex-start'}>
+          <Grid item xs={8}>
+            <ListaClientesTable />
+          </Grid>
+          <Grid item xs={4}>
+            <ClienteForm />
+          </Grid>
+        </Grid>
       </Box>
-    </>
+    </ClienteProvider>
   );
 }
 

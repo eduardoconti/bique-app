@@ -1,4 +1,4 @@
-import { ListaProdutosContext } from '@/context/lista-produto-context';
+import { ClienteContext } from '@/context/clientes-context';
 import {
   Box,
   Button,
@@ -10,29 +10,24 @@ import {
 } from '@mui/material';
 import React, { useRef } from 'react';
 
-export default function ProdutoForm() {
-  const { loading, add } = React.useContext(ListaProdutosContext);
+export default function ClienteForm() {
+  const { loading, add } = React.useContext(ClienteContext);
   const formRef = useRef<HTMLFormElement>(null);
-  const theme = useTheme();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     await add({
       nome: data.get('nome') as string,
-      descricao: data.get('descricao') as string,
-      valor: parseFloat(data.get('valor') as string) * 100,
-      materia_prima: [
-        {
-          id: '7e9bbe9c-c5da-4ccc-86fc-047bcfb26acc',
-          nome: 'sonho de valsa',
-          quantidade: 3,
-        },
-      ],
+      email: data.get('email') as string,
+      telefone: data.get('telefone') as string,
     });
     if (formRef.current) {
       formRef.current.reset();
     }
   };
+  const theme = useTheme();
+
   return (
     <Paper elevation={1} sx={{ padding: theme.spacing(2) }}>
       <Box
@@ -60,10 +55,10 @@ export default function ProdutoForm() {
               size="small"
               required
               fullWidth
-              id="descricao"
-              label="Descricao"
-              name="descricao"
-              autoComplete="descricao"
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
             />
           </Grid>
           <Grid item xs={12}>
@@ -71,10 +66,9 @@ export default function ProdutoForm() {
               size="small"
               required
               fullWidth
-              name="valor"
-              label="valor"
-              type="number"
-              id="valor"
+              name="telefone"
+              label="telefone"
+              id="telefone"
             />
           </Grid>
         </Grid>
