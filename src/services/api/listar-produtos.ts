@@ -1,5 +1,10 @@
 import { api, ApiErrorResponse } from '@/services/api/api';
 
+export type itemMateriaPrimaRequest = {
+  id: string;
+  quantidade: number;
+};
+
 export type itemMateriaPrimaResponse = {
   id: string;
   nome: string;
@@ -10,7 +15,7 @@ export type RegistrarProdutoRequest = {
   nome: string;
   descricao: string;
   valor: number;
-  materia_prima: itemMateriaPrimaResponse[];
+  materia_prima: itemMateriaPrimaRequest[];
 };
 
 export type RegistrarProdutoResponse = {
@@ -19,6 +24,7 @@ export type RegistrarProdutoResponse = {
   descricao: string;
   valor: number;
   materia_prima: itemMateriaPrimaResponse[];
+  preco_custo: number;
 };
 
 export type ListaProdutosResponse = {
@@ -27,6 +33,7 @@ export type ListaProdutosResponse = {
   descricao: string;
   valor: number;
   materia_prima: itemMateriaPrimaResponse[];
+  preco_custo: number;
 };
 
 export async function fetchListaProdutos(): Promise<ListaProdutosResponse[]> {

@@ -44,6 +44,9 @@ export default function ListaProdutosTable() {
               <TableCell align="right" sx={{ fontWeight: 'bold' }}>
                 Valor
               </TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold' }}>
+                Custo
+              </TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="center">
                 Materiais
               </TableCell>
@@ -81,6 +84,9 @@ function ProdutoLinha({ row }: { row: ListaProdutos }) {
         <TableCell size="small" align="right">
           {row.valor}
         </TableCell>
+        <TableCell size="small" align="right">
+          {row.preco_custo}
+        </TableCell>
         <TableCell size="small" align="center">
           <IconButton
             aria-label="spanning"
@@ -92,14 +98,11 @@ function ProdutoLinha({ row }: { row: ListaProdutos }) {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
           <Collapse in={mostrarItens} timeout="auto" unmountOnExit>
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell />
-                  <TableCell />
-                  <TableCell />
                   <TableCell
                     size="small"
                     align="left"
@@ -119,7 +122,6 @@ function ProdutoLinha({ row }: { row: ListaProdutos }) {
               <TableBody>
                 {row.materia_prima.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell colSpan={3} />
                     <TableCell size="small" align="left">
                       {item.nome}
                     </TableCell>

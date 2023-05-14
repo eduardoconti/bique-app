@@ -8,8 +8,12 @@ import {
 } from '@/services/api/listar-produtos';
 import { amountBrl } from '@/services/utils/amount';
 
-export type ListaProdutos = Omit<ListaProdutosResponse, 'valor'> & {
+export type ListaProdutos = Omit<
+  ListaProdutosResponse,
+  'valor' | 'preco_custo'
+> & {
   valor: string;
+  preco_custo: string;
 };
 type ListaProdutosContextType = {
   produtos: ListaProdutos[];
@@ -40,7 +44,11 @@ export function ListaProdutosProvider({ children }: PropsWithChildren) {
       const result = await fetchListaProdutos();
       setProdutos(() =>
         result.map((e) => {
-          return { ...e, valor: amountBrl(e.valor) };
+          return {
+            ...e,
+            valor: amountBrl(e.valor),
+            preco_custo: amountBrl(e.preco_custo),
+          };
         }),
       );
     } catch (error: any) {
@@ -62,7 +70,11 @@ export function ListaProdutosProvider({ children }: PropsWithChildren) {
   async function add(req: RegistrarProdutoRequest): Promise<void> {
     const result = await registraProduto(req);
     const novo = [...produtos];
-    novo.push({ ...result, valor: amountBrl(result.valor) });
+    novo.push({
+      ...result,
+      valor: amountBrl(result.valor),
+      preco_custo: amountBrl(result.preco_custo),
+    });
     setProdutos(() => novo);
   }
 
