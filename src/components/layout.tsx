@@ -31,6 +31,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import Router from 'next/router';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import PeopleIcon from '@mui/icons-material/People';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const drawerWidth = 240;
@@ -256,6 +257,15 @@ const AppDrawer = ({ children }: React.PropsWithChildren) => {
                 <PeopleIcon />
               </ListItemIcon>
               <ListItemText primary={'Clientes'} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => Router.push('/fornecedores')}>
+              <ListItemIcon>
+                <LocalShippingIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Fornecedores'} />
             </ListItemButton>
           </ListItem>
         </List>
