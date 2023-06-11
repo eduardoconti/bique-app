@@ -3,21 +3,33 @@ import { api, ApiErrorResponse } from '@/services/api/api';
 export type RegistrarMateriaPrimaRequest = {
   nome: string;
   descricao: string;
-  valor_unitario: number;
 };
 
 export type RegistrarMateriaPrimaResponse = {
   id: string;
   nome: string;
   descricao: string;
-  valor_unitario: number;
 };
 
-export type ListaMateriaPrimaResponse = RegistrarMateriaPrimaResponse[];
+export type ListaMateriaPrimaResponse = {
+  id: string;
+  nome: string;
+  descricao: string;
+  estoque_materia_prima: {
+    id: string;
+    custo_unitario: number;
+    quantidade: number;
+    data_inclusao: Date;
+  }[];
+};
 
-export async function fetchListaMateriaPrima(): Promise<ListaMateriaPrimaResponse> {
+export async function fetchListaMateriaPrima(): Promise<
+  ListaMateriaPrimaResponse[]
+> {
   try {
-    const { data } = await api.get<ListaMateriaPrimaResponse>(`/materia-prima`);
+    const { data } = await api.get<ListaMateriaPrimaResponse[]>(
+      `/materia-prima`,
+    );
 
     return data;
   } catch (error: any) {

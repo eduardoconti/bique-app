@@ -29,10 +29,10 @@ import { AuthContext } from '@/context/auth-context';
 import PersonIcon from '@mui/icons-material/Person';
 import CategoryIcon from '@mui/icons-material/Category';
 import Router from 'next/router';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
 import PeopleIcon from '@mui/icons-material/People';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 
 const drawerWidth = 240;
 
@@ -340,7 +340,7 @@ function MainLogo({ size, color }: { size?: string; color?: string }) {
   const defaultSize = '80px';
   const theme = useTheme();
   return (
-    <AcUnitIcon
+    <LocalFloristIcon
       sx={{
         color: color ?? theme.palette.primary.main,
         width: size ?? defaultSize,

@@ -2,19 +2,13 @@ import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import { ApiErrorResponse } from '@/services/api/api';
 import {
   fetchListaMateriaPrima,
+  ListaMateriaPrimaResponse,
   registraMateriaPrima,
   RegistrarMateriaPrimaRequest,
 } from '@/services/api/materia-prima';
-import { amountBrl } from '@/services/utils/amount';
 
-export type ListaMateriaPrima = {
-  id: string;
-  nome: string;
-  descricao: string;
-  valor_unitario: string;
-};
 type MateriaPrimaContextType = {
-  materiaPrima: ListaMateriaPrima[];
+  materiaPrima: ListaMateriaPrimaResponse[];
   loading: boolean;
   error: ApiErrorResponse | null;
   fetch: () => Promise<void>;
@@ -25,7 +19,9 @@ type MateriaPrimaContextType = {
 export const MateriaPrimaContext = createContext({} as MateriaPrimaContextType);
 
 export function MateriaPrimaProvider({ children }: PropsWithChildren) {
-  const [materiaPrima, setMateriaPrima] = useState<ListaMateriaPrima[]>([]);
+  const [materiaPrima, setMateriaPrima] = useState<ListaMateriaPrimaResponse[]>(
+    [],
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ApiErrorResponse | null>(null);
   useEffect(() => {
@@ -38,11 +34,7 @@ export function MateriaPrimaProvider({ children }: PropsWithChildren) {
     try {
       setLoading(true);
       const result = await fetchListaMateriaPrima();
-      setMateriaPrima(() =>
-        result.map((e) => {
-          return { ...e, valor_unitario: amountBrl(e.valor_unitario) };
-        }),
-      );
+      setMateriaPrima(() => result);
     } catch (error: any) {
       if (error instanceof ApiErrorResponse) {
         setError(error);
@@ -60,10 +52,8 @@ export function MateriaPrimaProvider({ children }: PropsWithChildren) {
   }
 
   async function add(req: RegistrarMateriaPrimaRequest): Promise<void> {
-    const result = await registraMateriaPrima(req);
-    const novo = [...materiaPrima];
-    novo.push({ ...result, valor_unitario: amountBrl(result.valor_unitario) });
-    setMateriaPrima(() => novo);
+    await registraMateriaPrima(req);
+    await fetch();
   }
 
   function clearError() {

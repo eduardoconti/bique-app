@@ -6,16 +6,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 import { Collapse, IconButton, TablePagination } from '@mui/material';
 
-import { MateriaPrimaContext } from '@/context/materia-prima-context';
-import { ListaMateriaPrimaResponse } from '@/services/api/materia-prima';
-import { amountBrl } from '@/services/utils/amount';
+import {
+  ListaPedidos,
+  ListaPedidosContext,
+} from '@/context/lista-pedido-context';
 
-export default function ListaMateriaPrimaTable() {
-  const { materiaPrima } = React.useContext(MateriaPrimaContext);
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { formatData } from '@/services/utils/data';
+
+export default function ListaPedidosTable() {
+  const { pedidos } = React.useContext(ListaPedidosContext);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -36,16 +40,22 @@ export default function ListaMateriaPrimaTable() {
         <Table aria-label="spanning table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>Nome</TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>Descrição</TableCell>
-              <TableCell align="right">Estoque</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Cliente</TableCell>
+              <TableCell align="right" sx={{ fontWeight: 'bold' }}>
+                Valor
+              </TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Status</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>Data entrega</TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }} align="center">
+                Itens
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {materiaPrima
+            {pedidos
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
-                <ProdutoLinha row={row} key={row.id} />
+                <PedidoLinha row={row} key={row.id} />
               ))}
           </TableBody>
         </Table>
@@ -53,7 +63,7 @@ export default function ListaMateriaPrimaTable() {
       <TablePagination
         rowsPerPageOptions={[5, 10, 25, 50, 100]}
         component="div"
-        count={materiaPrima.length}
+        count={pedidos.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -63,14 +73,20 @@ export default function ListaMateriaPrimaTable() {
   );
 }
 
-function ProdutoLinha({ row }: { row: ListaMateriaPrimaResponse }) {
+function PedidoLinha({ row }: { row: ListaPedidos }) {
   const [mostrarItens, setMostraItens] = React.useState<boolean>(false);
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell size="small">{row.nome}</TableCell>
-        <TableCell size="small">{row.descricao}</TableCell>
         <TableCell size="small" align="right">
+          {row.valor}
+        </TableCell>
+        <TableCell size="small">{row.status}</TableCell>
+        <TableCell size="small">
+          {formatData(row.data_entrega as Date)}
+        </TableCell>
+        <TableCell size="small" align="center">
           <IconButton
             aria-label="spanning"
             size="small"
@@ -88,6 +104,13 @@ function ProdutoLinha({ row }: { row: ListaMateriaPrimaResponse }) {
                 <TableRow>
                   <TableCell
                     size="small"
+                    align="left"
+                    sx={{ fontWeight: 'bold' }}
+                  >
+                    Produto
+                  </TableCell>
+                  <TableCell
+                    size="small"
                     align="right"
                     sx={{ fontWeight: 'bold' }}
                   >
@@ -98,19 +121,32 @@ function ProdutoLinha({ row }: { row: ListaMateriaPrimaResponse }) {
                     align="right"
                     sx={{ fontWeight: 'bold' }}
                   >
-                    Custo unitario
+                    Valor unitario
+                  </TableCell>
+                  <TableCell
+                    size="small"
+                    align="right"
+                    sx={{ fontWeight: 'bold' }}
+                  >
+                    Total item
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {row.estoque_materia_prima.map((item) => {
+                {row.item_pedido.map((item) => {
                   return (
                     <TableRow key={item.id}>
+                      <TableCell size="small" align="left">
+                        {item.produto}
+                      </TableCell>
                       <TableCell size="small" align="right">
                         {item.quantidade}
                       </TableCell>
                       <TableCell size="small" align="right">
-                        {amountBrl(item.custo_unitario)}
+                        {item.valor_unitario}
+                      </TableCell>
+                      <TableCell size="small" align="right">
+                        {item.total}
                       </TableCell>
                     </TableRow>
                   );

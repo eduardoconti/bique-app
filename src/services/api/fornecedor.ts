@@ -37,7 +37,10 @@ export async function registrarFornecedor(
   req: RegistrarFornecedorRequest,
 ): Promise<RegistrarFornecedorResponse> {
   try {
-    const { data } = await api.post<RegistrarFornecedorResponse>(`/fornecedor`, req);
+    const { data } = await api.post<RegistrarFornecedorResponse>(
+      `/fornecedor`,
+      req,
+    );
 
     return data;
   } catch (error: any) {

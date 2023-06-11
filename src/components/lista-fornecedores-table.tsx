@@ -36,7 +36,7 @@ export default function ListaFornecedoresTable() {
                 Nome
               </TableCell>
               <TableCell size="small" sx={{ fontWeight: 'bold' }}>
-                Email
+                Site
               </TableCell>
               <TableCell size="small" sx={{ fontWeight: 'bold' }}>
                 Telefone
@@ -70,7 +70,7 @@ function ProdutoLinha({ row }: { row: Fornecedor }) {
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell size="small">{row.nome}</TableCell>
-        <TableCell size="small">{row.email}</TableCell>
+        <TableCell size="small">{row.site}</TableCell>
         <TableCell size="small">{row.telefone}</TableCell>
       </TableRow>
     </React.Fragment>

@@ -20,7 +20,6 @@ export default function MateriaPrimaForm() {
     await add({
       nome: data.get('nome') as string,
       descricao: data.get('descricao') as string,
-      valor_unitario: parseFloat(data.get('valor') as string) * 100,
     });
     if (formRef.current) {
       formRef.current.reset();
@@ -59,17 +58,6 @@ export default function MateriaPrimaForm() {
               label="Descricao"
               name="descricao"
               autoComplete="descricao"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              size="small"
-              required
-              fullWidth
-              name="valor"
-              label="valor"
-              type="number"
-              id="valor"
             />
           </Grid>
         </Grid>
